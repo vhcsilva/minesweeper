@@ -1,0 +1,30 @@
+:root {
+  --bg: #F1FAEE;
+  --red: #E63946;
+  --blue300: #A8DADC;
+  --blue500: #457B9D;
+  --blue700: #1D3557;
+  --blue900: #112034;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100dvh;
+  width: 100vw;
+  padding: 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: var(--bg);
+  color: var(--blue900);
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
