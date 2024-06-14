@@ -1,0 +1,20 @@
+{
+  "name": "minesweeper",
+  "version": "1.0.0",
+  "description": "Minesweeper implemented with web components",
+  "scripts": {
+    "start": "serve dist",
+    "build": "webpack --watch"
+  },
+  "keywords": [],
+  "author": "Vitor Hugo <https://github.com/vhcsilva>",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "7.1.2",
+    "serve": "14.2.3",
+    "ts-loader": "9.5.1",
+    "typescript": "5.4.5",
+    "webpack": "5.92.0",
+    "webpack-cli": "5.1.4"
+  }
+}
