@@ -10,6 +10,7 @@
   "author": "Vitor Hugo <https://github.com/vhcsilva>",
   "license": "ISC",
   "devDependencies": {
+    "copy-webpack-plugin": "^12.0.2",
     "css-loader": "7.1.2",
     "html-webpack-plugin": "^5.6.0",
     "svg-inline-loader": "^0.8.2",
