@@ -3,6 +3,9 @@ import styles from '@/components/Menu/Menu.css'
 
 import { loadCSS } from '@/utils/load-css'
 import { getFromShadowById } from '@/utils/get-from-shadow-by-id'
+import { addNewGame } from '@/store/actions'
+import { Difficulty } from '@/types/minesweeper'
+import { dispatch } from '@/store/index'
 
 export class Menu extends HTMLElement {
   constructor() {
@@ -15,13 +18,24 @@ export class Menu extends HTMLElement {
   }
 
   onCreateClick() {
-    const name = getFromShadowById<HTMLInputElement>(this, 'nameInput')?.value
-    const isBeginnerChecked = !!getFromShadowById<HTMLInputElement>(this, 'beginnerInput')?.checked
-    const isIntermediateChecked = !!getFromShadowById<HTMLInputElement>(this, 'intermediateInput')?.checked
-    const isAdvancedChecked = !!getFromShadowById<HTMLInputElement>(this, 'advancedInput')?.checked
-    const difficulty = isBeginnerChecked && 'beginner' || isIntermediateChecked && 'intermediate' || isAdvancedChecked && 'advanced' || null
+    const nameInput = getFromShadowById<HTMLInputElement>(this, 'nameInput')
+    const beginnerInput = getFromShadowById<HTMLInputElement>(this, 'beginnerInput')
+    const intermediateInput = getFromShadowById<HTMLInputElement>(this, 'intermediateInput')
+    const advancedInput = getFromShadowById<HTMLInputElement>(this, 'advancedInput')
 
+    const difficulty =  beginnerInput?.checked && Difficulty.beginner ||
+                        intermediateInput?.checked && Difficulty.intermediate ||
+                        advancedInput?.checked && Difficulty.advanced ||
+                        null
 
+    if (nameInput?.value && difficulty) {
+      dispatch(addNewGame(nameInput?.value, difficulty))
+
+      nameInput.value = ''
+      beginnerInput.checked = false
+      intermediateInput.checked = false
+      advancedInput.checked = false
+    }
   }
 
   render() {
