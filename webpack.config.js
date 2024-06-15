@@ -23,7 +23,11 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'svg-inline-loader'
-      }
+      },
+      {
+        test: /\.template.html$/i,
+        loader: 'html-loader',
+      },
     ],
   },
   resolve: {
