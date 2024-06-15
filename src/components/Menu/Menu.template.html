@@ -1,19 +1,27 @@
 <div class="app-menu">
   <h3>New Game</h3>
 
-  <label for="nameInput">Name</label>
-  <input type="text" name="nameInput" id="nameInput">
-
   <div>
-    <input type="radio" name="difficulty" id="beginnerInput">
-    <label for="beginnerInput">Beginner</label>
-
-    <input type="radio" name="difficulty" id="intermediateInput">
-    <label for="intermediateInput">Intermediate</label>
-
-    <input type="radio" name="difficulty" id="advancedInput">
-    <label for="advancedInput">Advanced</label>
+    <label for="nameInput">Name</label>
+    <input type="text" name="nameInput" id="nameInput">
   </div>
+
+  <ul>
+    <li>
+      <input type="radio" name="difficulty" id="beginnerInput">
+      <label for="beginnerInput">Beginner</label>
+    </li>
+
+    <li>
+      <input type="radio" name="difficulty" id="intermediateInput">
+      <label for="intermediateInput">Intermediate</label>
+    </li>
+
+    <li>
+      <input type="radio" name="difficulty" id="advancedInput">
+      <label for="advancedInput">Advanced</label>
+    </li>
+  </ul>
 
   <button id="createGameButton">Create</button>
 </div>
