@@ -9,7 +9,11 @@ export function reducer(action: Action, currentState: ApplicationState): Applica
         ...clone,
         games: [
           ...clone.games,
-          { id: crypto.randomUUID(), ...action.payload }
+          {
+            ...action.payload,
+            uuid: crypto.randomUUID(),
+            startedAt: new Date()
+          }
         ]
       }
     default:

@@ -5,7 +5,8 @@ export enum Difficulty {
 }
 
 export interface Game {
-  id: string;
+  uuid: string;
   name: string;
   difficulty: Difficulty
+  startedAt: Date
 }

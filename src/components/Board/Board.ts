@@ -1,4 +1,5 @@
 import { applicationState, subscribe } from '@/store/index'
+import { setAttributes } from '@/utils/set-attributes'
 
 export class Board extends HTMLElement {
   constructor() {
@@ -16,12 +17,12 @@ export class Board extends HTMLElement {
 
     this.shadowRoot.innerHTML = ''
 
-    console.log(applicationState)
-
     applicationState.games.forEach(game => {
-      const gameName = this.ownerDocument.createElement('h1')
-      gameName.textContent = `${game.id} - ${game.name} - ${game.difficulty}`
-      this.shadowRoot?.appendChild(gameName)
+      const appGame = this.ownerDocument.createElement('app-game')
+      setAttributes(appGame, {
+        'game-uuid': game.uuid,
+      })
+      this.shadowRoot?.appendChild(appGame)
     })
   }
 }
