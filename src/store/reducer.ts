@@ -1,3 +1,4 @@
+import { MineSweeper } from '@/lib/minesweeper'
 import { Action, ActionTypes, ApplicationState } from '@/types/store'
 
 export function reducer(action: Action, currentState: ApplicationState): ApplicationState {
@@ -12,7 +13,8 @@ export function reducer(action: Action, currentState: ApplicationState): Applica
           {
             ...action.payload,
             uuid: crypto.randomUUID(),
-            startedAt: new Date()
+            startedAt: new Date(),
+            minesweeper: new MineSweeper(action.payload.difficulty)
           }
         ]
       }

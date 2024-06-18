@@ -1,3 +1,5 @@
+import { MineSweeper } from '@/lib/minesweeper'
+
 export enum Difficulty {
   beginner = 'beginner',
   intermediate = 'intermediate',
@@ -9,4 +11,5 @@ export interface Game {
   name: string;
   difficulty: Difficulty
   startedAt: Date
+  minesweeper: MineSweeper
 }
