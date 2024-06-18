@@ -1,7 +1,7 @@
 export const GameLayout = {
   beginner: {
-    cols: 9,
-    rows: 9,
+    cols: 8,
+    rows: 8,
     mines: 10,
   },
   intermediate: {
@@ -10,8 +10,8 @@ export const GameLayout = {
     mines: 40,
   },
   advanced: {
-    cols: 24,
-    rows: 24,
+    cols: 30,
+    rows: 16,
     mines: 99,
   },
 }
