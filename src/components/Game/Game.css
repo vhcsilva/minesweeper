@@ -1,4 +1,12 @@
+:host {
+  width: min-content;
+  height: min-content;
+}
+
 .game {
+  width: min-content;
+  height: min-content;
+
   display: flex;
   flex-direction: column;
 
@@ -15,8 +23,8 @@
 }
 
 .game .game-tiles-beginner {
-  grid-template-columns: repeat(9, var(--gameTileSize));
-  grid-template-rows: repeat(9, var(--gameTileSize));
+  grid-template-columns: repeat(8, var(--gameTileSize));
+  grid-template-rows: repeat(8, var(--gameTileSize));
 }
 
 .game .game-tiles-intermediate {
@@ -25,6 +33,6 @@
 }
 
 .game .game-tiles-advanced {
-  grid-template-columns: repeat(24, var(--gameTileSize));
-  grid-template-rows: repeat(24, var(--gameTileSize));
+  grid-template-columns: repeat(30, var(--gameTileSize));
+  grid-template-rows: repeat(16, var(--gameTileSize));
 }

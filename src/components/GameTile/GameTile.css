@@ -5,7 +5,14 @@
   height: var(--gameTileSize);
 
   border-radius: 0;
+  border: 1px solid var(--white);
   outline: 0;
   margin: 0;
   padding: 0;
+
+  background: radial-gradient(circle, var(--blue300) 0%, var(--blue700) 100%);
+}
+
+.game-tile:active {
+  background: radial-gradient(circle, var(--blue500) 0%, var(--blue700) 100%);
 }
