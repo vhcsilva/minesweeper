@@ -4,14 +4,22 @@
   "description": "Minesweeper implemented with web components",
   "scripts": {
     "dev": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "Vitor Hugo <https://github.com/vhcsilva>",
   "license": "ISC",
+  "homepage": "https://vhcsilva.github.io/minesweeper",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vhcsilva/minesweeper.git"
+  },
   "devDependencies": {
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "7.1.2",
+    "gh-pages": "^6.1.1",
     "html-loader": "^5.0.0",
     "html-webpack-plugin": "^5.6.0",
     "svg-inline-loader": "^0.8.2",
