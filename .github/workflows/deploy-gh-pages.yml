@@ -1,0 +1,15 @@
+name: Deploy Github Pages
+
+on: [push]
+
+jobs:
+  deploy-gh-pages:
+    name: Deploy Github Pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+
+      - run: npm ci
+      - run: npm run deploy
