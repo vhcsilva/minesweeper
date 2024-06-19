@@ -1,0 +1,47 @@
+// Imports
+import ___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___ from "../node_modules/css-loader/dist/runtime/noSourceMaps.js";
+import ___CSS_LOADER_API_IMPORT___ from "../node_modules/css-loader/dist/runtime/api.js";
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `:root {
+  --bg: #112034;
+  --white: #F1FAEE;
+  --red: #E63946;
+  --blue300: #A8DADC;
+  --blue500: #457B9D;
+  --blue700: #1D3557;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  color: var(--blue900);
+}
+
+body {
+  height: 100dvh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: var(--bg);
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.menu {
+  padding: 8px;
+
+  display: flex;
+  gap: 8px;
+}`, ""]);
+// Exports
+export default ___CSS_LOADER_EXPORT___;
