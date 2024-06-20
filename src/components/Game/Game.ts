@@ -5,6 +5,7 @@ import template from '@/components/Game/Game.template.html'
 import styles from '@/components/Game/Game.css'
 import { loadCSS } from '@/utils/load-css'
 import { GameLayout } from '@/utils/constants'
+import { setAttributes } from '@/utils/set-attributes'
 
 interface GameAttributes {
   uuid: string;
@@ -54,8 +55,19 @@ export class Game extends HTMLElement {
 
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
-          const tile = this.ownerDocument.createElement('app-game-tile')
-          tilesContainer.appendChild(tile)
+          const tile = game.board.tiles[row][col]
+
+          const tileComponent = this.ownerDocument.createElement('app-game-tile')
+          setAttributes(tileComponent, {
+            'tile-mine-count': tile.mineCount.toString(),
+            'tile-row': tile.row.toString(),
+            'tile-col': tile.col.toString(),
+            'tile-has-flag': tile.hasFlag.toString(),
+            'tile-is-mine': tile.isMine.toString(),
+            'tile-is-revealed': tile.isRevealed.toString(),
+          })
+
+          tilesContainer.appendChild(tileComponent)
         }
       }
     }

@@ -13,6 +13,11 @@
   background: radial-gradient(circle, var(--blue300) 0%, var(--blue700) 100%);
 }
 
+.game-tile svg {
+  width: calc(var(--gameTileSize) - 5px);
+  height: calc(var(--gameTileSize) - 5px);
+}
+
 .game-tile:active {
   background: radial-gradient(circle, var(--blue500) 0%, var(--blue700) 100%);
 }
