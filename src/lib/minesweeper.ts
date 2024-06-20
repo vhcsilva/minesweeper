@@ -1,45 +1,24 @@
 import { GameOverError } from '@/types/errors'
-import { Difficulty } from '@/types/minesweeper'
+import { Board, Difficulty, Tile } from '@/types/minesweeper'
 import { GameLayout } from '@/utils/constants'
 
-export interface Tile {
-  mineCount: number;
-  row: number;
-  col: number;
-  hasFlag: boolean;
-  isMine: boolean;
-  isRevealed: boolean;
-}
-
 export class MineSweeper {
-  private colsNumber: number
-  private rowsNumber: number
-  private minesNumber: number
-  private board: Tile[][]
-
-  constructor(readonly difficulty: Difficulty) {
+  static createBoard(difficulty: Difficulty): Board {
     const { rows, cols, mines } = GameLayout[difficulty]
 
-    this.rowsNumber = rows
-    this.colsNumber = cols
-    this.minesNumber = mines
-    this.board = []
-
-    this.initializeBoard()
+    return MineSweeper.initializeBoard({ rows, cols, mines, tiles: [] })
   }
 
-  initializeBoard() {
-    this.fillWithDefault()
-    this.placeMines()
-    this.fillMineCount()
+  static initializeBoard(board: Board): Board {
+    return MineSweeper.fillMineCount(MineSweeper.placeMines(MineSweeper.fillWithDefault(board)));
   }
 
-  fillWithDefault() {
-    for (let row = 0; row < this.rowsNumber; row++) {
-      this.board[row] = []
+  static fillWithDefault(board: Board): Board {
+    for (let row = 0; row < board.rows; row++) {
+      board.tiles[row] = []
 
-      for (let col = 0; col < this.colsNumber; col++) {
-        this.board[row][col] = {
+      for (let col = 0; col < board.cols; col++) {
+        board.tiles[row][col] = {
           isMine: false,
           isRevealed: false,
           hasFlag: false,
@@ -49,26 +28,30 @@ export class MineSweeper {
         }
       }
     }
+
+    return board
   }
 
-  placeMines() {
+  static placeMines(board: Board): Board {
     let minesPlaced = 0
 
-    while (minesPlaced < this.minesNumber) {
-      const row = Math.floor(Math.random() * this.rowsNumber)
-      const col = Math.floor(Math.random() * this.colsNumber)
+    while (minesPlaced < board.mines) {
+      const row = Math.floor(Math.random() * board.rows)
+      const col = Math.floor(Math.random() * board.cols)
 
-      if (this.board[row][col].isMine) return
+      if (board.tiles[row][col].isMine) continue
 
-      this.board[row][col].isMine = true
+      board.tiles[row][col].isMine = true
       minesPlaced++
     }
+
+    return board
   }
 
-  fillMineCount() {
-    for (let row = 0; row < this.rowsNumber; row++) {
-      for (let col = 0; col < this.colsNumber; col++) {
-        if (this.board[row][col].isMine)
+  static fillMineCount(board: Board): Board {
+    for (let row = 0; row < board.rows; row++) {
+      for (let col = 0; col < board.cols; col++) {
+        if (board.tiles[row][col].isMine)
           continue
 
         let count = 0
@@ -78,30 +61,34 @@ export class MineSweeper {
             const nRow = row + dx
             const nCol = col + dy
 
-            if (nRow >= 0 && nRow < this.rowsNumber && nCol >= 0 && nCol < this.colsNumber && this.board[nRow][nCol].isMine)
+            if (nRow >= 0 && nRow < board.rows && nCol >= 0 && nCol < board.cols && board.tiles[nRow][nCol].isMine)
               count++
           }
         }
 
-        this.board[row][col].mineCount = count
+        board.tiles[row][col].mineCount = count
       }
     }
+
+    return board
   }
 
-  toggleFlag(row: number, col: number) {
-    const tile = this.getTile(row, col)
+  static toggleFlag(board: Board, row: number, col: number): Board {
+    const tile = MineSweeper.getTile(board, row, col)
 
-    if (!tile || !!tile?.isRevealed) return
+    if (!tile || !!tile?.isRevealed) return board
 
-    this.board[row][col].hasFlag = !this.board[row][col].hasFlag
+    board.tiles[row][col].hasFlag = !board.tiles[row][col].hasFlag
+
+    return board
   }
 
-  revealTile(row: number, col: number) {
-    const tile = this.getTile(row, col)
+  static revealTile(board: Board, row: number, col: number): Board {
+    const tile = MineSweeper.getTile(board, row, col)
 
-    if (!tile) return
+    if (!tile) return board
 
-    this.board[row][col].isRevealed = true
+    board.tiles[row][col].isRevealed = true
 
     if (tile.isMine)
       throw new GameOverError()
@@ -109,16 +96,18 @@ export class MineSweeper {
     if (tile.mineCount === 0) {
       for (let dx = -1; dx <= 1; dx++) {
         for (let dy = -1; dy <= 1; dy++) {
-          this.revealTile(row + dx, row + dy)
+          MineSweeper.revealTile(board, row + dx, row + dy)
         }
       }
     }
+
+    return board
   }
 
-  getTile(row: number, col: number) {
-    if (row < 0 || row >= this.rowsNumber || col < 0 || col >= this.colsNumber)
+  static getTile(board: Board, row: number, col: number) {
+    if (row < 0 || row >= board.rows || col < 0 || col >= board.cols)
       return null
 
-    return this.board[row][col]
+    return board.tiles[row][col]
   }
 }
