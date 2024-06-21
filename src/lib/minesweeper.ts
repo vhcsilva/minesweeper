@@ -1,5 +1,4 @@
-import { GameOverError } from '@/types/errors'
-import { Board, Difficulty, Tile } from '@/types/minesweeper'
+import { Board, Difficulty } from '@/types/minesweeper'
 import { GameLayout } from '@/utils/constants'
 
 export class MineSweeper {
@@ -83,25 +82,25 @@ export class MineSweeper {
     return board
   }
 
-  static revealTile(board: Board, row: number, col: number): Board {
+  static revealTile(board: Board, row: number, col: number): { board: Board, gameOver: boolean } {
     const tile = MineSweeper.getTile(board, row, col)
+    let gameOver = false
 
-    if (!tile) return board
+    if (!tile || tile?.isRevealed) return { board: board, gameOver }
 
     board.tiles[row][col].isRevealed = true
 
     if (tile.isMine)
-      throw new GameOverError()
-
-    if (tile.mineCount === 0) {
+      gameOver = true
+    else if (tile.mineCount === 0) {
       for (let dx = -1; dx <= 1; dx++) {
         for (let dy = -1; dy <= 1; dy++) {
-          MineSweeper.revealTile(board, row + dx, row + dy)
+          MineSweeper.revealTile(board, row + dx, col + dy)
         }
       }
     }
 
-    return board
+    return { board: board, gameOver }
   }
 
   static getTile(board: Board, row: number, col: number) {
