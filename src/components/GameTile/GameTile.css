@@ -1,5 +1,7 @@
 .game-tile {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   width: var(--gameTileSize);
   height: var(--gameTileSize);
@@ -10,7 +12,18 @@
   margin: 0;
   padding: 0;
 
+  color: var(--blue700);
+  font-weight: 700;
+
   background: radial-gradient(circle, var(--blue300) 0%, var(--blue700) 100%);
+}
+
+.revealed {
+  background: var(--blue300);
+}
+
+.exploded {
+  background: var(--red);
 }
 
 .game-tile svg {

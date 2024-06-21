@@ -3,24 +3,31 @@ import { GameStatus } from '@/types/minesweeper'
 import { Action, ActionTypes, ApplicationState } from '@/types/store'
 
 export function reducer(action: Action, currentState: ApplicationState): ApplicationState {
-  const clone: ApplicationState = { ...currentState }
+  let clone: ApplicationState = structuredClone(currentState)
 
-  switch(action.type) {
-    case ActionTypes.NEW_GAME:
-      return {
-        ...clone,
-        games: [
-          ...clone.games,
-          {
-            ...action.payload,
-            uuid: crypto.randomUUID(),
-            startedAt: new Date(),
-            status: GameStatus.inProgress,
-            board: MineSweeper.createBoard(action.payload.difficulty),
-          }
-        ]
-      }
-    default:
-      return clone
+  if (action.type === ActionTypes.NEW_GAME) {
+    clone.games.push({
+      ...action.payload,
+      uuid: crypto.randomUUID(),
+      startedAt: new Date(),
+      status: GameStatus.inProgress,
+      board: MineSweeper.createBoard(action.payload.difficulty),
+    })
+  } else {
+    const { gameUUID, row, col } = action.payload
+    const gameIndex = clone.games.findIndex(({ uuid }) => uuid === gameUUID)
+
+    if (action.type === ActionTypes.PLACE_FLAG)
+      clone.games[gameIndex].board = MineSweeper.toggleFlag(clone.games[gameIndex].board, row, col)
+    else if (action.type === ActionTypes.REVEAL_TILE) {
+      const { board, gameOver } = MineSweeper.revealTile(clone.games[gameIndex].board, row, col)
+
+      clone.games[gameIndex].board = board
+
+      if (gameOver)
+        clone.games[gameIndex].status = GameStatus.lost
+    }
   }
+
+  return clone
 }
