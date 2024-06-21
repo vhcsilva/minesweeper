@@ -5,6 +5,11 @@ export let applicationState: ApplicationState = {
   games: []
 }
 
+const cache = localStorage.getItem('applicationState')
+
+if (cache)
+  applicationState = JSON.parse(cache)
+
 const observers: Observer[] = []
 
 export function subscribe(observer: Observer) {
@@ -13,5 +18,6 @@ export function subscribe(observer: Observer) {
 
 export function dispatch(action: Action) {
   applicationState = reducer(action, applicationState)
+  localStorage.setItem('applicationState', JSON.stringify(applicationState))
   observers.forEach(observer => observer.render())
 }
