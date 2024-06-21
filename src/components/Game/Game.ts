@@ -59,6 +59,8 @@ export class Game extends HTMLElement {
 
           const tileComponent = this.ownerDocument.createElement('app-game-tile')
           setAttributes(tileComponent, {
+
+            'game-uuid': this.uuid,
             'tile-mine-count': tile.mineCount.toString(),
             'tile-row': tile.row.toString(),
             'tile-col': tile.col.toString(),
