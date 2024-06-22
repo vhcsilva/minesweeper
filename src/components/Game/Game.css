@@ -16,6 +16,26 @@
 
 .game .game-header {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.game-header button {
+  color: var(--red500);
+  background: none;
+  border: none;
+}
+
+.game-header button:hover {
+  color: var(--red300);
+}
+
+.game-header button:active {
+  color: var(--red700);
+}
+
+.game-header button svg {
+  height: 20px;
 }
 
 .game .game-tiles {

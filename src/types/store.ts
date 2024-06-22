@@ -4,6 +4,7 @@ export type Observer = HTMLElement & { render: () => void }
 
 export enum ActionTypes {
   NEW_GAME = 'NEW_GAME',
+  REMOVE_GAME = 'REMOVE_GAME',
   PLACE_FLAG = 'PLACE_FLAG',
   REVEAL_TILE = 'REVEAL_TILE'
 }
@@ -34,7 +35,14 @@ export interface RevealTileAction {
   }
 }
 
-export type Action = AddGameAction | PlaceFlagAction | RevealTileAction
+export interface RemoveGameAction {
+  type: ActionTypes.REMOVE_GAME;
+  payload: {
+    gameUUID: string;
+  }
+}
+
+export type Action = AddGameAction | PlaceFlagAction | RevealTileAction | RemoveGameAction
 
 export interface ApplicationState {
   games: Game[];

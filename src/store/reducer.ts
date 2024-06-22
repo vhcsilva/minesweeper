@@ -13,6 +13,10 @@ export function reducer(action: Action, currentState: ApplicationState): Applica
       status: GameStatus.inProgress,
       board: MineSweeper.createBoard(action.payload.difficulty),
     })
+  } else if (action.type === ActionTypes.REMOVE_GAME) {
+    const { gameUUID } = action.payload
+    const gameIndex = clone.games.findIndex(({ uuid }) => uuid === gameUUID)
+    clone.games.splice(gameIndex, 1)
   } else {
     const { gameUUID, row, col } = action.payload
     const gameIndex = clone.games.findIndex(({ uuid }) => uuid === gameUUID)

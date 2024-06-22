@@ -1,5 +1,5 @@
 import { Difficulty } from '@/types/minesweeper'
-import { ActionTypes, AddGameAction, PlaceFlagAction, RevealTileAction } from '@/types/store'
+import { ActionTypes, AddGameAction, PlaceFlagAction, RemoveGameAction, RevealTileAction } from '@/types/store'
 
 export function addNewGame(name: string, difficulty: Difficulty): AddGameAction {
   return {
@@ -19,5 +19,12 @@ export function revealTile(gameUUID: string, row: number, col: number): RevealTi
   return {
     type: ActionTypes.REVEAL_TILE,
     payload:{ gameUUID, row, col }
+  }
+}
+
+export function removeGame(gameUUID: string): RemoveGameAction {
+  return {
+    type: ActionTypes.REMOVE_GAME,
+    payload:{ gameUUID }
   }
 }

@@ -1,7 +1,9 @@
 :root {
   --bg: #112034;
   --white: #F1FAEE;
-  --red: #E63946;
+  --red300: #f1949b;
+  --red500: #E63946;
+  --red700: #a41520;
   --blue300: #A8DADC;
   --blue500: #457B9D;
   --blue700: #1D3557;

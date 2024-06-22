@@ -23,7 +23,7 @@
 }
 
 .exploded {
-  background: var(--red);
+  background: var(--red500);
 }
 
 .game-tile svg {

@@ -1,4 +1,4 @@
-import { applicationState, subscribe } from '@/store/index'
+import { applicationState, dispatch, subscribe } from '@/store/index'
 import { getFromShadowById } from '@/utils/get-from-shadow-by-id'
 
 import template from '@/components/Game/Game.template.html'
@@ -6,6 +6,9 @@ import styles from '@/components/Game/Game.css'
 import { loadCSS } from '@/utils/load-css'
 import { GameLayout } from '@/utils/constants'
 import { setAttributes } from '@/utils/set-attributes'
+
+import TrashIcon from '../../../assets/icons/trash.svg'
+import { removeGame } from '@/store/actions'
 
 interface GameAttributes {
   uuid: string;
@@ -30,6 +33,10 @@ export class Game extends HTMLElement {
     this.render()
   }
 
+  onRemoveClick() {
+    dispatch(removeGame(this.uuid))
+  }
+
   render() {
     if (this.shadowRoot) this.shadowRoot.innerHTML = template
 
@@ -43,9 +50,11 @@ export class Game extends HTMLElement {
     if (gameName)
       gameName.textContent = game.name
 
-    const gameDifficulty = getFromShadowById(this, 'game-difficulty')
-    if (gameDifficulty)
-      gameDifficulty.textContent = game.difficulty
+    const removeButton = getFromShadowById(this, 'remove-button')
+    if (removeButton) {
+      removeButton.innerHTML = TrashIcon
+      removeButton.addEventListener('click', () => this.onRemoveClick())
+    }
 
     const tilesContainer = getFromShadowById(this, 'game-tiles')
     if (tilesContainer) {
