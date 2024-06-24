@@ -19,17 +19,26 @@ export class Board extends HTMLElement {
 
   render() {
     if (!this.shadowRoot) return
-
-    this.shadowRoot.innerHTML = template
+    if (!this.shadowRoot.innerHTML)
+      this.shadowRoot.innerHTML = template
 
     loadCSS(this, styles)
 
     const board = getFromShadowById(this, 'app-board')
 
+    board?.querySelectorAll(`app-game`)?.forEach(element => {
+      if (!applicationState.games.find(({ uuid }) => uuid === element.getAttribute('game-uuid')))
+        element.remove()
+    })
+
     applicationState.games.forEach(game => {
+      const isRendered = board?.querySelector(`app-game[game-uuid="${game.uuid}"]`)
+
+      if (isRendered) return
+
       const appGame = this.ownerDocument.createElement('app-game')
       setAttributes(appGame, {
-        'game-uuid': game.uuid,
+        'game-uuid': game.uuid
       })
       board?.appendChild(appGame)
     })

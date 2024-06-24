@@ -51,7 +51,10 @@ export class Game extends HTMLElement {
   }
 
   render() {
-    if (this.shadowRoot) this.shadowRoot.innerHTML = template
+    if (!this.shadowRoot)
+      return
+    if (!this.shadowRoot?.innerHTML)
+      this.shadowRoot.innerHTML = template.replace('[GAME-UUID]', this.uuid)
 
     loadCSS(this, styles)
 
@@ -59,20 +62,28 @@ export class Game extends HTMLElement {
 
     if (!game) return
 
+    const gameContainer = getFromShadowById(this, `game-${this.uuid}`)
+    if (applicationState.activeGame === game.uuid) {
+      gameContainer.classList.add('active')
+    } else if (gameContainer.classList.contains('active')){
+      gameContainer.classList.add('active')
+    }
+
     const gameName = getFromShadowById(this, 'game-name')
-    if (gameName)
+    if (gameName && gameName?.textContent !== game.name)
       gameName.textContent = game.name
 
     const mineCount = getFromShadowById(this, 'mines-count')
-    if (mineCount)
-      mineCount.textContent = `Mines: ${game.board.mines - game.board.flags}`
+    const currentMines = game.board.mines - game.board.flags
+    if (mineCount && !mineCount?.textContent?.includes(currentMines.toString()))
+      mineCount.textContent = `Mines: ${currentMines}`
 
     const gameEmoji = getFromShadowById(this, 'game-emoji')
-    if (gameEmoji)
+    if (gameEmoji && gameEmoji?.innerHTML !== emojiMapping[game.status])
       gameEmoji.innerHTML = emojiMapping[game.status]
 
     const removeButton = getFromShadowById(this, 'remove-button')
-    if (removeButton) {
+    if (removeButton && removeButton?.innerHTML !== TrashIcon) {
       removeButton.innerHTML = TrashIcon
       removeButton.addEventListener('click', () => this.onRemoveClick())
     }
@@ -82,24 +93,42 @@ export class Game extends HTMLElement {
       tilesContainer.classList.add(`game-tiles-${game.difficulty}`)
 
       const { rows, cols } = GameLayout[game.difficulty]
+      const { activeGame, activeTile } = applicationState
 
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
           const tile = game.board.tiles[row][col]
+          const isTileActive = activeGame === game.uuid && activeTile?.row === row && activeTile?.col === col
 
-          const tileComponent = this.ownerDocument.createElement('app-game-tile')
-          setAttributes(tileComponent, {
-            'game-uuid': game.uuid,
-            'game-status': game.status,
-            'tile-mine-count': tile.mineCount.toString(),
-            'tile-row': tile.row.toString(),
-            'tile-col': tile.col.toString(),
-            'tile-has-flag': tile.hasFlag.toString(),
-            'tile-is-mine': tile.isMine.toString(),
-            'tile-is-revealed': tile.isRevealed.toString(),
-          })
+          const rendered =
+            tilesContainer.querySelector(`app-game-tile[game-uuid="${game.uuid}"][tile-row="${row}"][tile-col="${col}"]`)
+          let tileComponent = rendered || this.ownerDocument.createElement('app-game-tile')
 
-          tilesContainer.appendChild(tileComponent)
+          if (
+            tileComponent.getAttribute('game-uuid') !== game.uuid ||
+            tileComponent.getAttribute('game-status') !== game.status ||
+            tileComponent.getAttribute('tile-mine-count') !== tile.mineCount.toString() ||
+            tileComponent.getAttribute('tile-row') !==  tile.row.toString() ||
+            tileComponent.getAttribute('tile-col') !== tile.col.toString() ||
+            tileComponent.getAttribute('tile-has-flag') !== tile.hasFlag.toString() ||
+            tileComponent.getAttribute('tile-is-mine') !== tile.isMine.toString() ||
+            tileComponent.getAttribute('tile-is-revealed') !== tile.isRevealed.toString() ||
+            tileComponent.getAttribute('tile-is-active') !== isTileActive.toString()
+          )
+            setAttributes(tileComponent, {
+              'game-uuid': game.uuid,
+              'game-status': game.status,
+              'tile-mine-count': tile.mineCount.toString(),
+              'tile-row': tile.row.toString(),
+              'tile-col': tile.col.toString(),
+              'tile-has-flag': tile.hasFlag.toString(),
+              'tile-is-mine': tile.isMine.toString(),
+              'tile-is-revealed': tile.isRevealed.toString(),
+              'tile-is-active': isTileActive.toString()
+            })
+
+          if (!rendered)
+            tilesContainer.appendChild(tileComponent)
         }
       }
     }

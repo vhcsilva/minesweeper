@@ -10,8 +10,12 @@
   display: flex;
   flex-direction: column;
 
-  border: 1px solid var(--blue500);
+  border: 2px solid var(--blue500);
   padding: 8px;
+}
+
+.active {
+  border: 2px solid var(--red500);
 }
 
 .game-header {

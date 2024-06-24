@@ -10,14 +10,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
   <body>
-    <aside class="menu-container">
-      <app-menu></app-menu>
-    </aside>
+    <global-shortcuts-provider></global-shortcuts-provider>
 
-    <main class="board-container">
-      <app-board></app-board>
-    </main>
+    <div class="app-container">
+      <aside class="menu-container">
+        <app-menu></app-menu>
 
+        <div class="shortcuts-info">
+          <h3>Keyboard Shortcuts</h3>
+          <ul>
+            <li>
+              <span class="shortcut">SHIFT + N</span>: go to New Game form
+            </li>
+
+            <li>
+              <span class="shortcut">SHIFT + B</span>: go to games board
+            </li>
+
+            <li>
+              <span class="shortcut">TAB</span>: on the games board, go to next game
+            </li>
+
+            <li>
+              <span class="shortcut">ARROWS</span>: on a game, navigate tiles
+            </li>
+
+            <li>
+              <span class="shortcut">SPACE</span>: on a game, reveal tile
+            </li>
+
+            <li>
+              <span class="shortcut">CTRL + SPACE</span>: on a game, place flag
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="board-container">
+        <app-board></app-board>
+      </main>
+    </div>
     <script src="./bundle.js"></script>
   </body>
 </html>

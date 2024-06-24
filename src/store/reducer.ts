@@ -5,10 +5,20 @@ import { Action, ActionTypes, ApplicationState } from '@/types/store'
 export function reducer(action: Action, currentState: ApplicationState): ApplicationState {
   let clone: ApplicationState = structuredClone(currentState)
 
-  if (action.type === ActionTypes.NEW_GAME) {
+  if (action.type === ActionTypes.CHANGE_ACTIVE_TILE) {
+    clone.activeTile = { row: action.payload.row, col: action.payload.col }
+  } else if (action.type === ActionTypes.CHANGE_ACTIVE_GAME) {
+    clone.activeGame = action.payload.gameUUID
+    clone.activeTile = { row: 0, col: 0 }
+  } else if (action.type === ActionTypes.CHANGE_ACTIVE_CONTAINER) {
+    clone.activeContainer = action.payload.container
+  } else if (action.type === ActionTypes.NEW_GAME) {
+    const newUUID = crypto.randomUUID()
+    clone.activeGame = newUUID
+    clone.activeTile = { row: 0, col: 0 }
     clone.games.push({
       ...action.payload,
-      uuid: crypto.randomUUID(),
+      uuid: newUUID,
       startedAt: new Date(),
       status: GameStatus.inProgress,
       board: MineSweeper.createBoard(action.payload.difficulty),
@@ -21,13 +31,15 @@ export function reducer(action: Action, currentState: ApplicationState): Applica
     const { gameUUID, row, col } = action.payload
     const gameIndex = clone.games.findIndex(({ uuid }) => uuid === gameUUID)
 
-    if (action.type === ActionTypes.PLACE_FLAG)
-      clone.games[gameIndex].board = MineSweeper.toggleFlag(clone.games[gameIndex].board, row, col)
-    else if (action.type === ActionTypes.REVEAL_TILE) {
-      const { board, status } = MineSweeper.revealTile(clone.games[gameIndex].board, row, col)
+    if (clone.games[gameIndex].status === GameStatus.inProgress) {
+      if (action.type === ActionTypes.PLACE_FLAG)
+        clone.games[gameIndex].board = MineSweeper.toggleFlag(clone.games[gameIndex].board, row, col)
+      else if (action.type === ActionTypes.REVEAL_TILE) {
+        const { board, status } = MineSweeper.revealTile(clone.games[gameIndex].board, row, col)
 
-      clone.games[gameIndex].board = board
-      clone.games[gameIndex].status = status
+        clone.games[gameIndex].board = board
+        clone.games[gameIndex].status = status
+      }
     }
   }
 

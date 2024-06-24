@@ -10,7 +10,7 @@ import { dispatch } from '@/store/index'
 export class Menu extends HTMLElement {
   constructor() {
     super()
-    this.attachShadow({ mode: 'open' })
+    this.attachShadow({ mode: 'open', delegatesFocus: true })
   }
 
   connectedCallback() {
