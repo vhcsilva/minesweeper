@@ -25,6 +25,8 @@ export interface Board {
   rows: number;
   cols: number;
   mines: number;
+  flags: number;
+  revealed: number;
   tiles: Tile[][];
 }
 

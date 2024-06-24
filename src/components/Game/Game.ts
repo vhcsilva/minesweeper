@@ -3,15 +3,28 @@ import { getFromShadowById } from '@/utils/get-from-shadow-by-id'
 
 import template from '@/components/Game/Game.template.html'
 import styles from '@/components/Game/Game.css'
+
 import { loadCSS } from '@/utils/load-css'
 import { GameLayout } from '@/utils/constants'
 import { setAttributes } from '@/utils/set-attributes'
 
-import TrashIcon from '../../../assets/icons/trash.svg'
 import { removeGame } from '@/store/actions'
+
+import { GameStatus } from '@/types/minesweeper'
+
+import TrashIcon from '../../../assets/icons/trash.svg'
+import SunglassesEmoji from '../../../assets/icons/sunglasses-emoji.svg'
+import HappyEmoji from '../../../assets/icons/happy-emoji.svg'
+import AstonishedEmoji from '../../../assets/icons/astonished-emoji.svg'
 
 interface GameAttributes {
   uuid: string;
+}
+
+const emojiMapping = {
+  [GameStatus.inProgress]: HappyEmoji,
+  [GameStatus.lost]: AstonishedEmoji,
+  [GameStatus.win]: SunglassesEmoji,
 }
 
 export class Game extends HTMLElement {
@@ -50,6 +63,14 @@ export class Game extends HTMLElement {
     if (gameName)
       gameName.textContent = game.name
 
+    const mineCount = getFromShadowById(this, 'mines-count')
+    if (mineCount)
+      mineCount.textContent = `Mines: ${game.board.mines - game.board.flags}`
+
+    const gameEmoji = getFromShadowById(this, 'game-emoji')
+    if (gameEmoji)
+      gameEmoji.innerHTML = emojiMapping[game.status]
+
     const removeButton = getFromShadowById(this, 'remove-button')
     if (removeButton) {
       removeButton.innerHTML = TrashIcon
@@ -68,8 +89,8 @@ export class Game extends HTMLElement {
 
           const tileComponent = this.ownerDocument.createElement('app-game-tile')
           setAttributes(tileComponent, {
-
-            'game-uuid': this.uuid,
+            'game-uuid': game.uuid,
+            'game-status': game.status,
             'tile-mine-count': tile.mineCount.toString(),
             'tile-row': tile.row.toString(),
             'tile-col': tile.col.toString(),

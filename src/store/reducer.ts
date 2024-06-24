@@ -24,12 +24,10 @@ export function reducer(action: Action, currentState: ApplicationState): Applica
     if (action.type === ActionTypes.PLACE_FLAG)
       clone.games[gameIndex].board = MineSweeper.toggleFlag(clone.games[gameIndex].board, row, col)
     else if (action.type === ActionTypes.REVEAL_TILE) {
-      const { board, gameOver } = MineSweeper.revealTile(clone.games[gameIndex].board, row, col)
+      const { board, status } = MineSweeper.revealTile(clone.games[gameIndex].board, row, col)
 
       clone.games[gameIndex].board = board
-
-      if (gameOver)
-        clone.games[gameIndex].status = GameStatus.lost
+      clone.games[gameIndex].status = status
     }
   }
 

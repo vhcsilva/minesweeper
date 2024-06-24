@@ -9,9 +9,11 @@ import { placeFlag, revealTile } from '@/store/actions'
 
 import BombIcon from '../../../assets/icons/bomb.svg'
 import FlagIcon from '../../../assets/icons/flag.svg'
+import { GameStatus } from '@/types/minesweeper'
 
 export class GameTile extends HTMLElement {
   gameUUID: string = ''
+  gameStatus: GameStatus = GameStatus.inProgress
   mineCount: number = 0
   row: number = 0
   col: number = 0
@@ -25,7 +27,7 @@ export class GameTile extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['game-uuid', 'tile-mine-count', 'tile-row', 'tile-col', 'tile-has-flag', 'tile-is-mine', 'tile-is-revealed']
+    return ['game-uuid', 'game-status', 'tile-mine-count', 'tile-row', 'tile-col', 'tile-has-flag', 'tile-is-mine', 'tile-is-revealed']
   }
 
   attributeChangedCallback(prop: string, _: unknown, value: string) {
@@ -34,6 +36,8 @@ export class GameTile extends HTMLElement {
     switch(changedAttribute) {
       case 'game-uuid':
         this.gameUUID = value
+      case 'game-status':
+        this.gameStatus = value === "lost" && GameStatus.lost || value === "win" && GameStatus.win || GameStatus.inProgress
       case 'mine-count':
         this.mineCount = Number(value)
       case 'row':
@@ -57,11 +61,13 @@ export class GameTile extends HTMLElement {
 
   onRevealTile(event: MouseEvent) {
     event.preventDefault();
+    if (this.gameStatus !== GameStatus.inProgress) return
     dispatch(revealTile(this.gameUUID, this.row, this.col))
   }
 
   onToggleFlag(event: MouseEvent) {
     event.preventDefault();
+    if (this.gameStatus !== GameStatus.inProgress) return
     dispatch(placeFlag(this.gameUUID, this.row, this.col))
   }
 
@@ -80,15 +86,17 @@ export class GameTile extends HTMLElement {
       tile?.addEventListener('click', e => this.onRevealTile(e))
     }
 
-    if (this.isRevealed) {
-      if (this.isMine) {
+    if (this.isMine) {
+      if (this.gameStatus === GameStatus.lost || this.isRevealed) {
         tile.classList.add('exploded')
         tile.innerHTML = BombIcon
-      } else {
-        tile.classList.add('revealed')
-        if (this.mineCount > 0)
-          tile.textContent = `${this.mineCount}`
+      } else if (this.hasFlag) {
+        tile.innerHTML = FlagIcon
       }
+    } else if (this.isRevealed) {
+      tile.classList.add('revealed')
+      if (this.mineCount > 0)
+        tile.textContent = `${this.mineCount}`
     } else if (this.hasFlag) {
       tile.innerHTML = FlagIcon
     }

@@ -14,10 +14,18 @@
   padding: 8px;
 }
 
-.game .game-header {
+.game-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
+}
+
+.game-header .game-name {
+  text-transform: capitalize;
+}
+
+.game-header .game-emoji svg {
+  height: 25px;
 }
 
 .game-header button {

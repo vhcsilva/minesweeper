@@ -1,11 +1,18 @@
-import { Board, Difficulty } from '@/types/minesweeper'
+import { Board, Difficulty, GameStatus } from '@/types/minesweeper'
 import { GameLayout } from '@/utils/constants'
 
 export class MineSweeper {
   static createBoard(difficulty: Difficulty): Board {
     const { rows, cols, mines } = GameLayout[difficulty]
 
-    return MineSweeper.initializeBoard({ rows, cols, mines, tiles: [] })
+    return MineSweeper.initializeBoard({
+      rows,
+      cols,
+      mines,
+      flags: 0,
+      revealed: 0,
+      tiles: []
+    })
   }
 
   static initializeBoard(board: Board): Board {
@@ -77,21 +84,31 @@ export class MineSweeper {
 
     if (!tile || !!tile?.isRevealed) return board
 
-    board.tiles[row][col].hasFlag = !board.tiles[row][col].hasFlag
+    const changedFlag = !board.tiles[row][col].hasFlag
+
+    if (changedFlag && board.flags === board.mines || !changedFlag && board.flags === 0) return board
+
+    if (changedFlag)
+      board.flags++
+    else
+      board.flags--
+
+    board.tiles[row][col].hasFlag = changedFlag
 
     return board
   }
 
-  static revealTile(board: Board, row: number, col: number): { board: Board, gameOver: boolean } {
+  static revealTile(board: Board, row: number, col: number): { board: Board, status: GameStatus } {
     const tile = MineSweeper.getTile(board, row, col)
-    let gameOver = false
 
-    if (!tile || tile?.isRevealed) return { board: board, gameOver }
+    if (!tile || tile?.isRevealed)
+      return { board: board, status: GameStatus.inProgress }
 
     board.tiles[row][col].isRevealed = true
+    board.revealed++
 
     if (tile.isMine)
-      gameOver = true
+      return { board: board, status: GameStatus.lost }
     else if (tile.mineCount === 0) {
       for (let dx = -1; dx <= 1; dx++) {
         for (let dy = -1; dy <= 1; dy++) {
@@ -100,7 +117,9 @@ export class MineSweeper {
       }
     }
 
-    return { board: board, gameOver }
+    const isWin = board.revealed === (board.rows * board.cols - board.mines)
+
+    return { board: board, status: isWin ? GameStatus.win : GameStatus.inProgress }
   }
 
   static getTile(board: Board, row: number, col: number) {
