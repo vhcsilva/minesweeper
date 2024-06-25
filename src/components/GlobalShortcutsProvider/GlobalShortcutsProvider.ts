@@ -1,4 +1,4 @@
-import { applicationState, dispatch } from '@/store/index'
+import { applicationState, dispatch, subscribe } from '@/store/index'
 import { changeActiveContainer, changeActiveGame, changeActiveTile, placeFlag, revealTile } from '@/store/actions'
 import { ApplicationContainers } from '@/types/store'
 import { useRevealTile, useToggleFlag } from '@/hooks/store'
@@ -39,7 +39,7 @@ export class GlobalShortcutsProvider extends HTMLElement {
   onKeyDown(e: KeyboardEvent) {
     if (e.key === 'Tab')
       this.onTabPressed(e)
-    else if (e.key.includes('Arrow')) {
+    else if (e.key.includes('Arrow') && applicationState.activeContainer === ApplicationContainers.BOARD) {
       e.preventDefault()
       const game = applicationState.games.find(({ uuid }) => uuid === applicationState.activeGame)
 
@@ -88,9 +88,15 @@ export class GlobalShortcutsProvider extends HTMLElement {
     }
   }
 
+  onClick(e: MouseEvent) {
+    const activeContainer = (e.target as HTMLElement).localName === 'app-menu' ? ApplicationContainers.MENU : ApplicationContainers.BOARD
+    dispatch(changeActiveContainer(activeContainer))
+  }
+
   render() {
     document.addEventListener('keydown', e => this.onKeyDown(e))
     document.addEventListener('keypress', e => this.onKeyPress(e))
+    document.addEventListener('click', e => this.onClick(e))
   }
 }
 
