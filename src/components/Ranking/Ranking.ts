@@ -6,7 +6,7 @@ import styles from '@/components/Ranking/Ranking.css'
 import { loadCSS } from '@/utils/load-css'
 import { GameStatus } from '@/types/minesweeper'
 import { getFromShadowById } from '@/utils/get-from-shadow-by-id'
-import { getTimeDifference } from '@/lib/date'
+import { getDifferenceInSeconds, getTimeDifference } from '@/lib/date'
 
 export class Ranking extends HTMLElement {
   constructor() {
@@ -26,7 +26,17 @@ export class Ranking extends HTMLElement {
 
     loadCSS(this, styles)
 
-    const wonGames = applicationState.games.filter(({ status }) => status === GameStatus.win)
+    const wonGames = applicationState.games
+      .filter(({ status }) => status === GameStatus.win)
+      .sort((game, nextGame) => {
+        const diffGame = getDifferenceInSeconds(game.startedAt, game.finishedAt!)
+        const diffNextGame = getDifferenceInSeconds(nextGame.startedAt, nextGame.finishedAt!)
+
+        if (diffGame < diffNextGame) return -1
+        if (diffNextGame < diffGame) return 1
+
+        return 0
+      })
 
     const rankingList = getFromShadowById(this, 'ranking-list')
 
