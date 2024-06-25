@@ -1,0 +1,59 @@
+.app-ranking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px;
+}
+
+.app-ranking h3 {
+  margin: 0px;
+  margin-bottom: 12px;
+}
+
+.app-ranking ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.app-ranking ul li {
+  display: grid;
+  grid-template-columns: 10% 60% 30%;
+}
+
+.app-ranking ul li span {
+  text-align: center;
+}
+
+.app-ranking ul li + li {
+  margin-top: 8px;
+}
+
+.medal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  padding: 4px;
+  border-radius: 50%;
+  background-color: var(--blue500);
+}
+
+.medal-1 {
+  background-color: var(--gold);
+  color: var(--blue700);
+}
+
+.medal-2 {
+  background-color: var(--silver);
+  color: var(--blue700);
+}
+
+.medal-3 {
+  background-color: var(--bronze);
+  color: var(--blue700);
+}
