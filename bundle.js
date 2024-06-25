@@ -53,6 +53,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/components/Ranking/Ranking.css":
+/*!********************************************!*\
+  !*** ./src/components/Ranking/Ranking.css ***!
+  \********************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, `.app-ranking {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n\n  padding: 12px;\n}\n\n.app-ranking h3 {\n  margin: 0px;\n  margin-bottom: 12px;\n}\n\n.app-ranking ul {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n}\n\n.app-ranking ul li {\n  display: grid;\n  grid-template-columns: 10% 60% 30%;\n}\n\n.app-ranking ul li span {\n  text-align: center;\n}\n\n.app-ranking ul li + li {\n  margin-top: 8px;\n}\n\n.medal {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 12px;\n  height: 12px;\n  padding: 4px;\n  border-radius: 50%;\n  background-color: var(--blue500);\n}\n\n.medal-1 {\n  background-color: var(--gold);\n  color: var(--blue700);\n}\n\n.medal-2 {\n  background-color: var(--silver);\n  color: var(--blue700);\n}\n\n.medal-3 {\n  background-color: var(--bronze);\n  color: var(--blue700);\n}`, \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://minesweeper/./src/components/Ranking/Ranking.css?");
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/runtime/api.js":
 /*!*****************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/api.js ***!
@@ -116,6 +127,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// Module\nvar code = \"<div class=\\\"app-menu\\\">\\n  <h3>New Game</h3>\\n\\n  <div>\\n    <label for=\\\"nameInput\\\">Name</label>\\n    <input type=\\\"text\\\" name=\\\"nameInput\\\" id=\\\"nameInput\\\">\\n  </div>\\n\\n  <ul>\\n    <li>\\n      <input type=\\\"radio\\\" name=\\\"difficulty\\\" id=\\\"beginnerInput\\\">\\n      <label for=\\\"beginnerInput\\\">Beginner</label>\\n    </li>\\n\\n    <li>\\n      <input type=\\\"radio\\\" name=\\\"difficulty\\\" id=\\\"intermediateInput\\\">\\n      <label for=\\\"intermediateInput\\\">Intermediate</label>\\n    </li>\\n\\n    <li>\\n      <input type=\\\"radio\\\" name=\\\"difficulty\\\" id=\\\"advancedInput\\\">\\n      <label for=\\\"advancedInput\\\">Advanced</label>\\n    </li>\\n  </ul>\\n\\n  <button id=\\\"createGameButton\\\">Create</button>\\n</div>\";\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);\n\n//# sourceURL=webpack://minesweeper/./src/components/Menu/Menu.template.html?");
+
+/***/ }),
+
+/***/ "./src/components/Ranking/Ranking.template.html":
+/*!******************************************************!*\
+  !*** ./src/components/Ranking/Ranking.template.html ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// Module\nvar code = \"<div class=\\\"app-ranking\\\" id=\\\"app-ranking\\\">\\n  <h3>Top 5</h3>\\n\\n  <ul id=\\\"ranking-list\\\">\\n\\n  </ul>\\n</div>\";\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);\n\n//# sourceURL=webpack://minesweeper/./src/components/Ranking/Ranking.template.html?");
 
 /***/ }),
 
@@ -234,6 +256,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/components/Ranking/Ranking.ts":
+/*!*******************************************!*\
+  !*** ./src/components/Ranking/Ranking.ts ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Ranking: () => (/* binding */ Ranking)\n/* harmony export */ });\n/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/store/index */ \"./src/store/index.ts\");\n/* harmony import */ var _components_Ranking_Ranking_template_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Ranking/Ranking.template.html */ \"./src/components/Ranking/Ranking.template.html\");\n/* harmony import */ var _components_Ranking_Ranking_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Ranking/Ranking.css */ \"./src/components/Ranking/Ranking.css\");\n/* harmony import */ var _utils_load_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/utils/load-css */ \"./src/utils/load-css.ts\");\n/* harmony import */ var _types_minesweeper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/types/minesweeper */ \"./src/types/minesweeper.ts\");\n/* harmony import */ var _utils_get_from_shadow_by_id__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/utils/get-from-shadow-by-id */ \"./src/utils/get-from-shadow-by-id.ts\");\n/* harmony import */ var _lib_date__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/date */ \"./src/lib/date.ts\");\n\n\n\n\n\n\n\nclass Ranking extends HTMLElement {\n    constructor() {\n        super();\n        this.attachShadow({ mode: 'open' });\n        (0,_store_index__WEBPACK_IMPORTED_MODULE_0__.subscribe)(this);\n    }\n    connectedCallback() {\n        this.render();\n    }\n    render() {\n        if (!this.shadowRoot)\n            return;\n        this.shadowRoot.innerHTML = _components_Ranking_Ranking_template_html__WEBPACK_IMPORTED_MODULE_1__[\"default\"];\n        (0,_utils_load_css__WEBPACK_IMPORTED_MODULE_3__.loadCSS)(this, _components_Ranking_Ranking_css__WEBPACK_IMPORTED_MODULE_2__[\"default\"]);\n        const wonGames = _store_index__WEBPACK_IMPORTED_MODULE_0__.applicationState.games\n            .filter(({ status }) => status === _types_minesweeper__WEBPACK_IMPORTED_MODULE_4__.GameStatus.win)\n            .sort((game, nextGame) => {\n            const diffGame = (0,_lib_date__WEBPACK_IMPORTED_MODULE_6__.getDifferenceInSeconds)(game.startedAt, game.finishedAt);\n            const diffNextGame = (0,_lib_date__WEBPACK_IMPORTED_MODULE_6__.getDifferenceInSeconds)(nextGame.startedAt, nextGame.finishedAt);\n            if (diffGame < diffNextGame)\n                return -1;\n            if (diffNextGame < diffGame)\n                return 1;\n            return 0;\n        });\n        const rankingList = (0,_utils_get_from_shadow_by_id__WEBPACK_IMPORTED_MODULE_5__.getFromShadowById)(this, 'ranking-list');\n        const positions = [0, 1, 2, 3, 4];\n        positions.forEach(index => {\n            const game = wonGames.at(index);\n            const position = index + 1;\n            const score = game ? (0,_lib_date__WEBPACK_IMPORTED_MODULE_6__.getTimeDifference)(game.startedAt, game.finishedAt) : '-';\n            rankingList.innerHTML += `\n        <li>\n          <span class=\"medal medal-${position}\">${position}</span>\n          <span>${game?.name || '-'}</span>\n          <span>${score}</span>\n        </li>\n      `;\n        });\n    }\n}\ncustomElements.define('app-ranking', Ranking);\n\n\n//# sourceURL=webpack://minesweeper/./src/components/Ranking/Ranking.ts?");
+
+/***/ }),
+
 /***/ "./src/hooks/store.ts":
 /*!****************************!*\
   !*** ./src/hooks/store.ts ***!
@@ -252,7 +285,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_Menu_Menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/Menu/Menu */ \"./src/components/Menu/Menu.ts\");\n/* harmony import */ var _components_Board_Board__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Board/Board */ \"./src/components/Board/Board.ts\");\n/* harmony import */ var _components_Game_Game__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Game/Game */ \"./src/components/Game/Game.ts\");\n/* harmony import */ var _components_GameTile_GameTile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/GameTile/GameTile */ \"./src/components/GameTile/GameTile.ts\");\n/* harmony import */ var _components_GlobalShortcutsProvider_GlobalShortcutsProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/GlobalShortcutsProvider/GlobalShortcutsProvider */ \"./src/components/GlobalShortcutsProvider/GlobalShortcutsProvider.ts\");\n\n\n\n\n\n\n\n//# sourceURL=webpack://minesweeper/./src/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_Menu_Menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/Menu/Menu */ \"./src/components/Menu/Menu.ts\");\n/* harmony import */ var _components_Board_Board__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Board/Board */ \"./src/components/Board/Board.ts\");\n/* harmony import */ var _components_Game_Game__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Game/Game */ \"./src/components/Game/Game.ts\");\n/* harmony import */ var _components_GameTile_GameTile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/GameTile/GameTile */ \"./src/components/GameTile/GameTile.ts\");\n/* harmony import */ var _components_GlobalShortcutsProvider_GlobalShortcutsProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/GlobalShortcutsProvider/GlobalShortcutsProvider */ \"./src/components/GlobalShortcutsProvider/GlobalShortcutsProvider.ts\");\n/* harmony import */ var _components_Ranking_Ranking__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Ranking/Ranking */ \"./src/components/Ranking/Ranking.ts\");\n\n\n\n\n\n\n\n\n//# sourceURL=webpack://minesweeper/./src/index.ts?");
 
 /***/ }),
 
@@ -274,7 +307,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getTimeDifference: () => (/* binding */ getTimeDifference)\n/* harmony export */ });\nfunction getTimeDifference(from, to) {\n    const diff = Math.round((new Date(to).getTime() - new Date(from).getTime()) / 1000);\n    const minutes = Math.floor(diff / 60);\n    const seconds = diff - minutes * 60;\n    return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');\n}\n\n\n//# sourceURL=webpack://minesweeper/./src/lib/date.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getDifferenceInSeconds: () => (/* binding */ getDifferenceInSeconds),\n/* harmony export */   getTimeDifference: () => (/* binding */ getTimeDifference)\n/* harmony export */ });\nfunction getDifferenceInSeconds(from, to) {\n    return Math.round((new Date(to).getTime() - new Date(from).getTime()) / 1000);\n}\nfunction getTimeDifference(from, to) {\n    const diff = Math.round((new Date(to).getTime() - new Date(from).getTime()) / 1000);\n    const minutes = Math.floor(diff / 60);\n    const seconds = diff - minutes * 60;\n    return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');\n}\n\n\n//# sourceURL=webpack://minesweeper/./src/lib/date.ts?");
 
 /***/ }),
 
