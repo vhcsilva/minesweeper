@@ -66,7 +66,7 @@ export class Game extends HTMLElement {
     if (applicationState.activeGame === game.uuid) {
       gameContainer.classList.add('active')
     } else if (gameContainer.classList.contains('active')){
-      gameContainer.classList.add('active')
+      gameContainer.classList.remove('active')
     }
 
     const gameName = getFromShadowById(this, 'game-name')
