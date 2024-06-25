@@ -12,12 +12,14 @@ import { removeGame } from '@/store/actions'
 
 import { GameStatus } from '@/types/minesweeper'
 
+import { Timer } from '@/lib/timer'
+import { getTimeDifference } from '@/lib/date'
+
 import TrashIcon from '../../../assets/icons/trash.svg'
 import SunglassesEmoji from '../../../assets/icons/sunglasses-emoji.svg'
 import HappyEmoji from '../../../assets/icons/happy-emoji.svg'
 import AstonishedEmoji from '../../../assets/icons/astonished-emoji.svg'
-import { Timer } from '@/lib/timer'
-import { getTimeDifference } from '@/lib/date'
+import TrophyIcon from '../../../assets/icons/trophy.svg'
 
 interface GameAttributes {
   uuid: string;
@@ -69,6 +71,15 @@ export class Game extends HTMLElement {
       gameContainer.classList.add('active')
     } else if (gameContainer.classList.contains('active')){
       gameContainer.classList.remove('active')
+    }
+
+    const trophyContainer = getFromShadowById(this, 'trophy-container')
+    if (applicationState.highestScoreGame?.game?.uuid === this.uuid) {
+      gameContainer.classList.add('highest-score-game')
+      if (trophyContainer) trophyContainer.innerHTML = TrophyIcon
+    } else {
+      gameContainer.classList.remove('highest-score-game')
+      if (trophyContainer) trophyContainer.innerHTML = ''
     }
 
     if (game.status === GameStatus.inProgress) {

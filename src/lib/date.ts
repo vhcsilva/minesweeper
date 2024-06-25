@@ -3,7 +3,7 @@ export function getDifferenceInSeconds(from: Date, to: Date) {
 }
 
 export function getTimeDifference(from: Date, to: Date) {
-  const diff = Math.round((new Date(to).getTime() - new Date(from).getTime()) / 1000)
+  const diff = getDifferenceInSeconds(from, to)
   const minutes = Math.floor(diff / 60)
   const seconds = diff - minutes * 60
 

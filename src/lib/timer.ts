@@ -18,6 +18,8 @@ function endTimer(gameUUID: string) {
   const interval = localStorage.getItem(`time-${gameUUID}`)
   if (interval)
     clearInterval(interval)
+
+  localStorage.removeItem(`time-${gameUUID}`)
 }
 
 export const Timer = {

@@ -78,6 +78,10 @@ export type Action = AddGameAction | PlaceFlagAction | RevealTileAction | Remove
 
 export interface ApplicationState {
   games: Game[];
+  highestScoreGame?: {
+    game: Game;
+    score: number;
+  };
   activeContainer: ApplicationContainers;
   activeGame?: string;
   activeTile?: {

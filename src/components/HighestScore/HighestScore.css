@@ -1,0 +1,15 @@
+.highest-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--blue300);
+}
+
+.trophy svg {
+  height: 20px;
+}

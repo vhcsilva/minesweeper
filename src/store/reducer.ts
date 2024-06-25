@@ -1,3 +1,4 @@
+import { getDifferenceInSeconds } from '@/lib/date'
 import { MineSweeper } from '@/lib/minesweeper'
 import { GameStatus } from '@/types/minesweeper'
 import { Action, ActionTypes, ApplicationState } from '@/types/store'
@@ -42,6 +43,18 @@ export function reducer(action: Action, currentState: ApplicationState): Applica
 
         if (status !== GameStatus.inProgress)
           clone.games[gameIndex].finishedAt = new Date()
+
+        if (status === GameStatus.win) {
+          const game = clone.games[gameIndex]
+          const score = getDifferenceInSeconds(game.startedAt, game.finishedAt!)
+
+          if (!clone?.highestScoreGame?.score || score < clone?.highestScoreGame?.score)
+            clone.highestScoreGame = {
+              game,
+              score
+            }
+
+        }
       }
     }
   }
