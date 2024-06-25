@@ -61,7 +61,8 @@ export class GlobalShortcutsProvider extends HTMLElement {
 
       if (newRow !== row || newCol !== col)
         dispatch(changeActiveTile(newRow, newCol))
-    } else if (e.key === ' ') {
+    } else if (e.key === ' ' && applicationState.activeContainer === ApplicationContainers.BOARD) {
+      e.preventDefault()
       const gameUUID = applicationState.activeGame
       const row = applicationState.activeTile?.row
       const col = applicationState.activeTile?.col

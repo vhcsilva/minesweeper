@@ -3,9 +3,10 @@ import styles from '@/components/Menu/Menu.css'
 
 import { loadCSS } from '@/utils/load-css'
 import { getFromShadowById } from '@/utils/get-from-shadow-by-id'
-import { addNewGame } from '@/store/actions'
+import { addNewGame, changeActiveContainer } from '@/store/actions'
 import { Difficulty } from '@/types/minesweeper'
 import { dispatch } from '@/store/index'
+import { ApplicationContainers } from '@/types/store'
 
 export class Menu extends HTMLElement {
   constructor() {
@@ -30,6 +31,7 @@ export class Menu extends HTMLElement {
 
     if (nameInput?.value && difficulty) {
       dispatch(addNewGame(nameInput?.value, difficulty))
+      dispatch(changeActiveContainer(ApplicationContainers.BOARD))
 
       nameInput.value = ''
       beginnerInput.checked = false

@@ -5,12 +5,13 @@ import { loadCSS } from '@/utils/load-css'
 import { getFromShadowById } from '@/utils/get-from-shadow-by-id'
 import { isTrue } from '@/lib/boolean'
 import { dispatch } from '@/store/index'
-import { changeActiveGame, changeActiveTile, placeFlag, revealTile } from '@/store/actions'
+import { changeActiveContainer, changeActiveGame, changeActiveTile, placeFlag, revealTile } from '@/store/actions'
 
 import BombIcon from '../../../assets/icons/bomb.svg'
 import FlagIcon from '../../../assets/icons/flag.svg'
 import { GameStatus } from '@/types/minesweeper'
 import { useRevealTile, useToggleFlag } from '@/hooks/store'
+import { ApplicationContainers } from '@/types/store'
 
 export class GameTile extends HTMLElement {
   gameUUID: string = ''
@@ -106,6 +107,7 @@ export class GameTile extends HTMLElement {
   updateActiveGameAndTile() {
     dispatch(changeActiveGame(this.gameUUID))
     dispatch(changeActiveTile(this.row, this.col))
+    dispatch(changeActiveContainer(ApplicationContainers.BOARD))
   }
 
   onRevealTile(event: MouseEvent) {
