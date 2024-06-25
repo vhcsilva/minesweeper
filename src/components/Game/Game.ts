@@ -17,6 +17,7 @@ import SunglassesEmoji from '../../../assets/icons/sunglasses-emoji.svg'
 import HappyEmoji from '../../../assets/icons/happy-emoji.svg'
 import AstonishedEmoji from '../../../assets/icons/astonished-emoji.svg'
 import { Timer } from '@/lib/timer'
+import { getTimeDifference } from '@/lib/date'
 
 interface GameAttributes {
   uuid: string;
@@ -75,6 +76,10 @@ export class Game extends HTMLElement {
       Timer.startTimer(game.uuid, game.startedAt)
     } else {
       Timer.endTimer(game.uuid)
+
+      const timerComponent = getFromShadowById(this, `timer-${game.uuid}`)
+      if (timerComponent && game.finishedAt && game.startedAt)
+        timerComponent.textContent = getTimeDifference(game.startedAt, game.finishedAt)
     }
 
     const gameName = getFromShadowById(this, 'game-name')

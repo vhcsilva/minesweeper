@@ -1,3 +1,5 @@
+import { getTimeDifference } from '@/lib/date'
+
 function startTimer(gameUUID: string, startedAt: Date) {
   const timerComponent = document?.
     querySelector('app-board')?.shadowRoot?.
@@ -6,10 +8,7 @@ function startTimer(gameUUID: string, startedAt: Date) {
   if (!timerComponent) return
 
   const interval = setInterval(() => {
-    const diff = Math.round((new Date().getTime() - startedAt.getTime()) / 1000)
-    const minutes = Math.floor(diff / 60)
-    const seconds = diff - minutes * 60
-    timerComponent.textContent = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+    timerComponent.textContent = getTimeDifference(startedAt, new Date())
   }, 1000)
 
   localStorage.setItem(`time-${gameUUID}`, interval.toString())

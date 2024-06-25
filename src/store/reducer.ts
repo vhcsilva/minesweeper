@@ -39,6 +39,9 @@ export function reducer(action: Action, currentState: ApplicationState): Applica
 
         clone.games[gameIndex].board = board
         clone.games[gameIndex].status = status
+
+        if (status !== GameStatus.inProgress)
+          clone.games[gameIndex].finishedAt = new Date()
       }
     }
   }

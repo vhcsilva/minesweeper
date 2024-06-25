@@ -35,6 +35,7 @@ export interface Game {
   name: string;
   difficulty: Difficulty;
   startedAt: Date;
+  finishedAt?: Date;
   status: GameStatus;
   board: Board;
 }
