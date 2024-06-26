@@ -3,10 +3,10 @@ import styles from '@/components/Menu/Menu.css'
 
 import { loadCSS } from '@/utils/load-css'
 import { getFromShadowById } from '@/utils/get-from-shadow-by-id'
-import { addNewGame, changeActiveContainer } from '@/store/actions'
+import { addNewGame, changeActiveContainer, changeSortedBy } from '@/store/actions'
 import { Difficulty } from '@/types/minesweeper'
-import { dispatch } from '@/store/index'
-import { ApplicationContainers } from '@/types/store'
+import { applicationState, dispatch } from '@/store/index'
+import { ApplicationContainers, SortOptions } from '@/types/store'
 
 export class Menu extends HTMLElement {
   constructor() {
@@ -40,6 +40,10 @@ export class Menu extends HTMLElement {
     }
   }
 
+  onSortClick(sort: SortOptions) {
+    dispatch(changeSortedBy(sort))
+  }
+
   render() {
     if (!this.shadowRoot) return
 
@@ -48,6 +52,26 @@ export class Menu extends HTMLElement {
     loadCSS(this, styles)
 
     getFromShadowById(this, 'createGameButton')?.addEventListener('click', () => this.onCreateClick())
+
+    const sortByNewest = getFromShadowById(this, 'sortByNewest')
+    if (sortByNewest) {
+      sortByNewest.addEventListener('click', () => this.onSortClick(SortOptions.NEWEST))
+
+      if (applicationState.sortedBy === SortOptions.NEWEST)
+        sortByNewest.setAttribute('checked', 'true')
+      else
+        sortByNewest.removeAttribute('checked')
+    }
+
+    const sortByOldest = getFromShadowById(this, 'sortByOldest')
+    if (sortByOldest) {
+      sortByOldest.addEventListener('click', () => this.onSortClick(SortOptions.OLDEST))
+
+      if (applicationState.sortedBy === SortOptions.OLDEST)
+        sortByOldest.setAttribute('checked', 'true')
+      else
+        sortByOldest.removeAttribute('checked')
+    }
   }
 }
 

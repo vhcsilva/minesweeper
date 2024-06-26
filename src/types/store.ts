@@ -1,3 +1,4 @@
+
 import { Difficulty, Game } from '@/types/minesweeper'
 
 export type Observer = HTMLElement & { render: () => void }
@@ -16,6 +17,12 @@ export enum ActionTypes {
   CHANGE_ACTIVE_GAME = 'CHANGE_ACTIVE_GAME',
   CHANGE_ACTIVE_TILE = 'CHANGE_ACTIVE_TILE',
   CHANGE_ACTIVE_MENU_ITEM = 'CHANGE_ACTIVE_MENU_ITEM',
+  CHANGE_SORT = 'CHANGE_SORT',
+}
+
+export enum SortOptions {
+  NEWEST = 'NEWEST',
+  OLDEST = 'OLDEST',
 }
 
 export interface AddGameAction {
@@ -73,10 +80,18 @@ export interface ChangeActiveTileAction {
   }
 }
 
+export interface ChangeSortAction {
+  type: ActionTypes.CHANGE_SORT;
+  payload: {
+    sort: SortOptions;
+  }
+}
+
 export type Action = AddGameAction | PlaceFlagAction | RevealTileAction | RemoveGameAction |
-  ChangeActiveContainerAction | ChangeActiveGameAction | ChangeActiveTileAction
+  ChangeActiveContainerAction | ChangeActiveGameAction | ChangeActiveTileAction | ChangeSortAction
 
 export interface ApplicationState {
+  sortedBy: SortOptions;
   games: Game[];
   highestScoreGame?: {
     game: Game;

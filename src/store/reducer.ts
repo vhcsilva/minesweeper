@@ -1,12 +1,24 @@
 import { getDifferenceInSeconds } from '@/lib/date'
 import { MineSweeper } from '@/lib/minesweeper'
 import { GameStatus } from '@/types/minesweeper'
-import { Action, ActionTypes, ApplicationState } from '@/types/store'
+import { Action, ActionTypes, ApplicationState, SortOptions } from '@/types/store'
 
 export function reducer(action: Action, currentState: ApplicationState): ApplicationState {
   let clone: ApplicationState = structuredClone(currentState)
 
-  if (action.type === ActionTypes.CHANGE_ACTIVE_TILE) {
+  if (action.type === ActionTypes.CHANGE_SORT) {
+    clone.sortedBy = action.payload.sort
+    clone.games = clone.games.sort((game, nextGame) => {
+      const order = action.payload.sort === SortOptions.NEWEST ? -1 : 1
+
+      if (game.startedAt > nextGame.startedAt)
+        return order
+      else if (game.startedAt < nextGame.startedAt)
+        return order * -1
+
+      return 0
+    })
+  } else if (action.type === ActionTypes.CHANGE_ACTIVE_TILE) {
     clone.activeTile = { row: action.payload.row, col: action.payload.col }
   } else if (action.type === ActionTypes.CHANGE_ACTIVE_GAME) {
     clone.activeGame = action.payload.gameUUID
@@ -17,13 +29,17 @@ export function reducer(action: Action, currentState: ApplicationState): Applica
     const newUUID = crypto.randomUUID()
     clone.activeGame = newUUID
     clone.activeTile = { row: 0, col: 0 }
-    clone.games.push({
+    const newGame = {
       ...action.payload,
       uuid: newUUID,
       startedAt: new Date(),
       status: GameStatus.inProgress,
       board: MineSweeper.createBoard(action.payload.difficulty),
-    })
+    }
+    if (clone.sortedBy === SortOptions.NEWEST)
+      clone.games.unshift(newGame)
+    else
+      clone.games.push(newGame)
   } else if (action.type === ActionTypes.REMOVE_GAME) {
     const { gameUUID } = action.payload
     const gameIndex = clone.games.findIndex(({ uuid }) => uuid === gameUUID)

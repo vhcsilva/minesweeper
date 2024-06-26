@@ -6,9 +6,11 @@ import {
   ChangeActiveContainerAction,
   ChangeActiveGameAction,
   ChangeActiveTileAction,
+  ChangeSortAction,
   PlaceFlagAction,
   RemoveGameAction,
-  RevealTileAction
+  RevealTileAction,
+  SortOptions
 } from '@/types/store'
 
 export function addNewGame(name: string, difficulty: Difficulty): AddGameAction {
@@ -57,5 +59,12 @@ export function changeActiveTile(row: number, col: number): ChangeActiveTileActi
   return {
     type: ActionTypes.CHANGE_ACTIVE_TILE,
     payload: { row, col }
+  }
+}
+
+export function changeSortedBy(sort: SortOptions): ChangeSortAction {
+  return {
+    type: ActionTypes.CHANGE_SORT,
+    payload: { sort }
   }
 }

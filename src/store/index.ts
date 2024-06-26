@@ -1,9 +1,10 @@
 import { reducer } from '@/store/reducer'
-import { Action, ApplicationContainers, ApplicationState, Observer } from '@/types/store'
+import { Action, ApplicationContainers, ApplicationState, Observer, SortOptions } from '@/types/store'
 
 export let applicationState: ApplicationState = {
   games: [],
-  activeContainer: ApplicationContainers.MENU
+  activeContainer: ApplicationContainers.MENU,
+  sortedBy: SortOptions.NEWEST,
 }
 
 const cache = localStorage.getItem('applicationState')

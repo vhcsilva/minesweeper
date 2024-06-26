@@ -7,6 +7,8 @@ import template from '@/components/Board/Board.template.html'
 import { getFromShadowById } from '@/utils/get-from-shadow-by-id'
 
 export class Board extends HTMLElement {
+  sortedBy = applicationState.sortedBy
+
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
@@ -19,7 +21,12 @@ export class Board extends HTMLElement {
 
   render() {
     if (!this.shadowRoot) return
-    if (!this.shadowRoot.innerHTML)
+
+    const needsToResort = this.sortedBy !== applicationState.sortedBy
+    if (needsToResort)
+      this.sortedBy = applicationState.sortedBy
+
+    if (!this.shadowRoot.innerHTML || needsToResort)
       this.shadowRoot.innerHTML = template
 
     loadCSS(this, styles)
